@@ -9,7 +9,7 @@ import WelcomePage from "./components/WelcomePage";
 export default async function Home() {
   const session = await getServerSession(authOptions)
   return (
-    <main>
+    <main className="flex flex-col items-center">
       {/* Rendering components */}
       {session?.user && <AddPost />}
       {session?.user && <Post />}

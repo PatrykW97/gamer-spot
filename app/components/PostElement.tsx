@@ -31,7 +31,7 @@ export default function PostElement({avatar, name, postTitle, id, comments } :Po
       setShowComments(!showComments)
     }
   return (
-    <div className="bg-white my-8 p-8 rounded-lg">
+    <div className="bg-white my-4 p-4 rounded-lg xl:w-1/3 md:w-1/2 sm:w-2/3">
       <div className="flex items-center gap-2">
         <Image
           className="rounded-full"

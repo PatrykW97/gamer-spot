@@ -11,28 +11,36 @@ export default async function handler(
     const session = await getServerSession(req, res, authOptions);
 
     if (!session)
-      return res.status(401).json({ message: "Proszę zaloguj się by stworzyć posta!" });
+      return res
+        .status(401)
+        .json({ message: "Proszę zaloguj się by stworzyć posta!" });
     //getting users posts
     try {
       const data = await prisma.user.findUnique({
         where: {
           email: session.user?.email,
         },
-        include:{
-            Post:{
+        include: {
+          Post: {
+            orderBy: {
+              createdAt: "desc",
+            },
+            include: {
+              Comment: {
                 orderBy: {
-                    createdAt: "desc"
+                  createdAt: "desc"
                 },
-                include:{
-                    Comment: true
-                }
-            }
-        }
+                include: {
+                  user: true,
+                },
+              },
+            },
+          },
+        },
       });
       res.status(200).json(data);
     } catch (err) {
-        return res.status(403).json({ message : "no coś się zjebało byq"})
+      return res.status(403).json({ message: "no coś się zjebało byq" });
     }
   }
 }
-

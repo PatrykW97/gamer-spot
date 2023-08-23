@@ -53,7 +53,7 @@ export default function CreatePost() {
   };
 
   return (
-    <form onSubmit={submitPost} className="bg-white m-8 p-8 rounded-md">
+    <form onSubmit={submitPost} className="bg-white m-8 p-4 rounded-md xl:w-1/3 md:w-1/2 sm:w-2/3">
       <div className="flex flex-col my-4">
         <textarea
           ref={textareaRef}

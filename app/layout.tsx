@@ -28,7 +28,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`min-h-screen mx-4 md:mx-48 xl:mx-96 ${roboto.variable} bg-gradient-to-tl from-blue-800 via-purple-700 to-pink-800 `}>
+      <body className={`min-h-screen mx-4 flex flex-col  ${roboto.variable} bg-gradient-to-tl from-blue-800 via-purple-700 to-pink-800 `}>
         <QueryWrapper>
         <Toaster />
         <Nav />

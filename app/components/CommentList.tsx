@@ -36,7 +36,7 @@ export default function CommentList({ comment }: CommentInfo) {
   const [toggle, setToggle] = useState(false);
   let deleteToastID: string;
   const queryClient = useQueryClient();
-  console.log(data);
+  
   const { mutate } = useMutation(
     async (id: string) =>
       await axios.delete("/api/posts/deleteComment", { data: id }),

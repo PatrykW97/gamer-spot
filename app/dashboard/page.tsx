@@ -1,6 +1,6 @@
 import { authOptions } from "../../pages/api/auth/[...nextauth]"
 import { redirect } from "next/navigation"
-import MyPosts from "./MyPosts"
+import MyDashboard from "./MyDashboard"
 import { getServerSession } from 'next-auth/next'
 export default async function Dashboard() {
     const session = await getServerSession(authOptions)
@@ -9,8 +9,7 @@ export default async function Dashboard() {
     }
     return(
         <main >
-            <h1 className="text-2xl text-white font-bold">Pronto {session?.user?.name}</h1>
-            <MyPosts />
+            <MyDashboard session={session} />
         </main>
     )
 }
