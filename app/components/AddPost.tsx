@@ -53,7 +53,7 @@ export default function CreatePost() {
   };
 
   return (
-    <form onSubmit={submitPost} className="bg-white m-8 p-4 rounded-md xl:w-1/3 md:w-1/2 sm:w-2/3">
+    <form onSubmit={submitPost} className="bg-white m-8 p-4 rounded-md xl:w-1/3 md:w-1/2 w-3/4">
       <div className="flex flex-col my-4">
         <textarea
           ref={textareaRef}
@@ -72,7 +72,7 @@ export default function CreatePost() {
         >{`${title.length}/300`}</p>
         <button
           disabled={isDisabled}
-          className="text-sm bg-blue-700 text-white py-2 rounded-xl disabled:opacity-25"
+          className="text-sm bg-gray-500 text-white p-2 rounded-xl disabled:opacity-25 hover:bg-green-400"
           type="submit"
         >
           Wyślij to!

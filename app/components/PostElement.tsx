@@ -31,7 +31,7 @@ export default function PostElement({avatar, name, postTitle, id, comments } :Po
       setShowComments(!showComments)
     }
   return (
-    <div className="bg-white my-4 p-4 rounded-lg xl:w-1/3 md:w-1/2 sm:w-2/3">
+    <div className="bg-white my-4 p-4 rounded-xl xl:w-1/3 md:w-1/2 w-3/4">
       <div className="flex items-center gap-2">
         <Image
           className="rounded-full"
@@ -47,7 +47,7 @@ export default function PostElement({avatar, name, postTitle, id, comments } :Po
       </div>
       <div className="flex gap-4 cursor items-center">
         <button onClick={toggleCommentView}>
-          <p className="text-sm font-bold text-gray-700">
+          <p className="text-sm font-bold text-gray-700 ">
             {comments?.length} Comments
           </p>
         </button>

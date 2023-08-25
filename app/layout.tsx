@@ -5,8 +5,6 @@ import { Roboto } from "next/font/google";
 import Nav from "./auth/Nav";
 import QueryWrapper from "./auth/QueryWrapper";
 import { Toaster } from "react-hot-toast";
-import { getServerSession } from 'next-auth/next'
-import { authOptions } from "@/pages/api/auth/[...nextauth]"
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400","700"],
@@ -23,8 +21,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
-  const session = await getServerSession(authOptions)
 
   return (
     <html lang="en">

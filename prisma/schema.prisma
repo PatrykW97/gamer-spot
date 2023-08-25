@@ -55,17 +55,17 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-
 model User {
-    id            String       @id @default(cuid())
-    name          String?
-    email         String?      @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    Post          Post[]
-    Comment       Comment[]
+    id             String    @id @default(cuid())
+    name           String?   
+    nickname       String?
+    email          String?   @unique
+    image          String?   @default("https://lh3.googleusercontent.com/a/AAcHTtdeQNGhDUxaD0l-iZUJKYI6TqWw9B9nEcCssgaw2Joi68Y=s96-c")
+    hashedPassword String?
+    accounts       Account[]
+    sessions       Session[]
+    Post           Post[]
+    Comment        Comment[]
 }
 
 model VerificationToken {

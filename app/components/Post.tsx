@@ -22,7 +22,7 @@ export default function Post() {
   if (isLoading) return "Loading....";
 
   return (
-    <>
+    <div className="flex flex-grow-2 flex-col items-center">
     
     {data?.map((post) => (
         <PostElement
@@ -34,6 +34,6 @@ export default function Post() {
           id={post.id}
         />
       ))}
-    </>
+    </div>
   );
 }

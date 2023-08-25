@@ -3,16 +3,25 @@
 import Image from "next/image";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from 'next/navigation'
 
 type User = {
     image: string
 }
 
 export default function Logged({image}:User) {
+  const router = useRouter()
+  
+  const handleSignOut = async () => {
+    await signOut() 
+    // router.push('/') 
+  }
+
+
   return (
     <li className="flex gap-8 items-center">
       <button
-        onClick={() => signOut()}
+        onClick={handleSignOut}
         className="bg-blue-800 text-white text-lg px-6 py-2 rounded-xl"
       >
         Sign out

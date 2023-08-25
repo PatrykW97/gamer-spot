@@ -3,11 +3,14 @@
 //import components
 import AddPost from "./components/AddPost";
 import Post from "./components/Post";
+import WelcomePage from "./components/WelcomePage";
+
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from "@/pages/api/auth/[...nextauth]"
-import WelcomePage from "./components/WelcomePage";
+
 export default async function Home() {
   const session = await getServerSession(authOptions)
+  console.log(session)
   return (
     <main className="flex flex-col items-center">
       {/* Rendering components */}

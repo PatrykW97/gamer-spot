@@ -67,7 +67,7 @@ export default function AddComment({ id, setShowAddComment }: PostProps) {
 
   return (
     <form onSubmit={addComment} className="my-8">
-      <h3 className="my-8">Add comment</h3>
+      <h3 className="font-bold">Add comment</h3>
       <div className="flex flex-col my-2">
         <textarea
           ref={textareaRef}
@@ -80,7 +80,7 @@ export default function AddComment({ id, setShowAddComment }: PostProps) {
       <div className="flex items-center gap-2">
         <button
           disabled={isDisabled}
-          className="text-sm bg-blue-700 text-white py-2 rounded-xl disabled:opacity-25"
+          className="text-sm bg-gray-500 hover:bg-green-400 text-white p-2 rounded-xl disabled:opacity-25"
           type="submit"
         >
           Add comment
