@@ -13,10 +13,17 @@ export default async function handler(
     if (!session) return res.status(401).json({ message: "Log in" });
 
     try {
-      const data = await prisma.user.findUnique({
+      const data = await prisma.friendship.findMany({
         where: {
-          email: session?.user?.email,
-        },
+            OR:[
+           {userAId: session?.user?.id},
+           {userBId: session?.user?.id}
+            ]
+        },include:{
+            userA: true,
+            userB: true
+             
+        }
       });
       res.status(200).json(data);
     } catch (err) {

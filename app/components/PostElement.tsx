@@ -2,46 +2,56 @@ import Image from "next/image";
 import { useState } from "react";
 import CommentList from "./CommentList";
 import AddComment from "./AddComment";
+import Link from "next/link";
 type PostInfo = {
-    avatar: string
-    name: string
-    postTitle: string
-    id: string
-    comments?:{
-      createdAt?: string;
+  avatar: string;
+  name: string;
+  postTitle: string;
+  id: string;
+  userId: string;
+  comments?: {
+    createdAt?: string;
+    id: string;
+    postId: string;
+    message?: string;
+    userId: string;
+    user: {
+      email: string;
       id: string;
-      postId: string;
-      message?: string;
-      userId: string;
-      user: {
-        email: string;
-        id: string;
-        image: string;
-        name: string;
-      };
-      }[]
-  }
+      image: string;
+      name: string;
+    };
+  }[];
+};
 
-export default function PostElement({avatar, name, postTitle, id, comments } :PostInfo) {
-    const [showComments, setShowComments] = useState(false);
-    const [showAddComment, setShowAddComment] = useState(false);
-  
-    const toggleCommentView = () =>{
-      setShowAddComment(!showAddComment)
-      setShowComments(!showComments)
-    }
+export default function PostElement({
+  avatar,
+  name,
+  postTitle,
+  id,
+  comments,
+  userId
+}: PostInfo) {
+  const [showComments, setShowComments] = useState(false);
+  const [showAddComment, setShowAddComment] = useState(false);
+  const toggleCommentView = () => {
+    setShowAddComment(!showAddComment);
+    setShowComments(!showComments);
+  };
   return (
     <div className="bg-white my-4 p-4 rounded-xl xl:w-1/3 md:w-1/2 w-3/4">
-      <div className="flex items-center gap-2">
-        <Image
-          className="rounded-full"
-          width={32}
-          height={32}
-          src={avatar}
-          alt="avatar"
-        />
-        <h3 className="font-bold text-gray-700">{name}</h3>
-      </div>
+      <Link href={`/user/${userId}`}>
+        <div className="flex items-center gap-2">
+          <Image
+            className="rounded-full"
+            width={32}
+            height={32}
+            src={avatar}
+            alt="avatar"
+          />
+          <h3 className="font-bold text-gray-700">{name}</h3>
+        </div>
+      </Link>
       <div className="my-8">
         <p className="break-all">{postTitle}</p>
       </div>
@@ -51,9 +61,6 @@ export default function PostElement({avatar, name, postTitle, id, comments } :Po
             {comments?.length} Comments
           </p>
         </button>
-        {/* <Link href={`/post/${id}`}>
-            <p className="text-sm font-bold text-gray-700">Add comment</p>
-        </Link> */}
       </div>
       {showComments &&
         comments?.map((comment, index) => (

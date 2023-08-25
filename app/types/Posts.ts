@@ -5,6 +5,7 @@ export type PostType = {
     user: {
         name: string
         image: string
+        id: string
     }
     Comment?:{
         createdAt?: string

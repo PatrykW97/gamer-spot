@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
-  const quertClient = useQueryClient()
+  const quertClient = useQueryClient();
   let toastPostID: string;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -18,6 +18,7 @@ export default function CreatePost() {
       onError: (error) => {
         if (error instanceof AxiosError) {
           toast.dismiss(toastPostID);
+          console.log(error)
           toast.error(error?.response?.data.message);
         }
         setIsDisabled(false);
@@ -25,7 +26,7 @@ export default function CreatePost() {
       onSuccess: (data) => {
         toast.dismiss(toastPostID);
         toast.success("post has been made");
-        quertClient.invalidateQueries(["posts"])
+        quertClient.invalidateQueries(["posts"]);
         setTitle("");
         setIsDisabled(false);
       },
@@ -53,7 +54,10 @@ export default function CreatePost() {
   };
 
   return (
-    <form onSubmit={submitPost} className="bg-white m-8 p-4 rounded-md xl:w-1/3 md:w-1/2 w-3/4">
+    <form
+      onSubmit={submitPost}
+      className="bg-white m-8 p-4 rounded-md xl:w-1/3 md:w-1/2 w-3/4"
+    >
       <div className="flex flex-col my-4">
         <textarea
           ref={textareaRef}

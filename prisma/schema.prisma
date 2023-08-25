@@ -56,16 +56,18 @@ model Session {
 }
 
 model User {
-    id             String    @id @default(cuid())
-    name           String?   
+    id             String       @id @default(cuid())
+    name           String?
     nickname       String?
-    email          String?   @unique
-    image          String?   @default("https://lh3.googleusercontent.com/a/AAcHTtdeQNGhDUxaD0l-iZUJKYI6TqWw9B9nEcCssgaw2Joi68Y=s96-c")
+    email          String?      @unique
+    image          String?      @default("https://lh3.googleusercontent.com/a/AAcHTtdeQNGhDUxaD0l-iZUJKYI6TqWw9B9nEcCssgaw2Joi68Y=s96-c")
     hashedPassword String?
     accounts       Account[]
     sessions       Session[]
     Post           Post[]
     Comment        Comment[]
+    friendshipsA   Friendship[] @relation("FriendshipUserA")
+    friendshipsB   Friendship[] @relation("FriendshipUserB")
 }
 
 model VerificationToken {
@@ -74,4 +76,16 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Friendship {
+    id          String  @id @default(uuid())
+    userA       User    @relation("FriendshipUserA", fields: [userAId], references: [id])
+    userAId     String
+    userB       User    @relation("FriendshipUserB", fields: [userBId], references: [id])
+    userBId     String
+    isConfirmed Boolean @default(false)
+
+    @@index([userAId])
+    @@index([userBId])
 }

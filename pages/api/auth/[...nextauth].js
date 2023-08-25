@@ -1,9 +1,11 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import CredentialsProvider from "next-auth/providers/credentials";
 import argon2 from "argon2";
+
+
 const prisma = new PrismaClient();
 
 const authenticateUser = async (credentials) => {
@@ -51,17 +53,17 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async session({ session, token, user }) {
-      console.log("session", { session, token, user });
+    async session({ session, user } ) {
+      session.user.id = user.id
       return session;
     },
-    async jwt({ session, token, user }) {
-      console.log("jwt", { session, token, user });
-      return session;
-    },
+     async jwt({ token } ) {
+       return token
+       }
   },
-  session: {
-    strategy: "jwt",
-  },
+  //  session:{
+  //    strategy:"jwt"
+  //  }
+  
 };
 export default NextAuth(authOptions);

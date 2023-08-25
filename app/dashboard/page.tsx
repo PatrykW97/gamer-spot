@@ -1,15 +1,14 @@
-import { authOptions } from "../../pages/api/auth/[...nextauth]"
 import { redirect } from "next/navigation"
 import MyDashboard from "./MyDashboard"
-import { getServerSession } from 'next-auth/next'
+import { getCurrentUser } from "../session"
 export default async function Dashboard() {
-    const session = await getServerSession(authOptions)
-    if(!session){
+    const user = await getCurrentUser()
+    if(!user){
         redirect('/api/auth/signin')
     }
     return(
         <main >
-            <MyDashboard session={session} />
+            <MyDashboard user={user} />
         </main>
     )
 }
