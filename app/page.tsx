@@ -5,18 +5,16 @@ import AddPost from "./components/AddPost";
 import Post from "./components/Post";
 import WelcomePage from "./components/WelcomePage";
 
-import { getServerSession } from 'next-auth/next'
-import { authOptions } from "@/pages/api/auth/[...nextauth]"
+import { getCurrentUser } from "./session"
 
 export default async function Home() {
-  const session = await getServerSession(authOptions)
-  console.log(session)
+  const user = await getCurrentUser()
   return (
     <main className="flex flex-col items-center">
       {/* Rendering components */}
-      {session?.user && <AddPost />}
-      {session?.user && <Post />}
-      {!session && <WelcomePage />}
+      {user && <AddPost />}
+      {user && <Post />}
+      {!user && <WelcomePage />}
     </main>
   );
 }

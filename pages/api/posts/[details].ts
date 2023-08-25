@@ -7,22 +7,14 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-   
+  
     try {
-     const data = await prisma.post.findUnique({
+     const data = await prisma.user.findUnique({
         where: {
             id: req.query.details,
         },
         include: {
-            user: true,
-            Comment:{
-                orderBy: {
-                    createdAt: "desc"
-                },
-                include: {
-                    user:true,
-                }
-            }
+            Post:true
         }
      })
       res.status(200).json(data);

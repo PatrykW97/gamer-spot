@@ -20,7 +20,6 @@ export default function Post() {
   });
   if (error) return "Error";
   if (isLoading) return "Loading....";
-
   return (
     <div className="flex flex-grow-2 flex-col items-center">
     
@@ -32,6 +31,7 @@ export default function Post() {
           avatar={post.user.image}
           postTitle={post.title}
           id={post.id}
+          userId={post.user.id}
         />
       ))}
     </div>
