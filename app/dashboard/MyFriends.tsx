@@ -20,15 +20,13 @@ export default function MyFriends({user}:SessionUserInfo){
         queryFn: fetchAuthPost,
         queryKey: ["friend"],
       });
-      if (isLoading) return <h1>Loading posts...</h1>;
-      console.log(data)
+      if (isLoading) return <h1>Loading...</h1>;
     return(
-        <div>
+        <div className="border-3">
             {data?.map((friend)=>(
-                <div>
-                    <h1>{friend.userB.name}</h1>
+                <div className="border-2 m-2">
+                    <h1>{friend.userA.name}</h1>
                     {friend.isConfirmed===false && friend.userAId===user.id ? <h1>Waiting for acceptation</h1> : <h1>Zaakceptuj zaproszenie albo wypierdol</h1>}
-                    
                 </div>
             ))}
         </div>
