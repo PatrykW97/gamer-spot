@@ -1,4 +1,4 @@
-export type AuthPosts = {
+export type AuthUser = {
   email: string;
   id: string;
   image: string;

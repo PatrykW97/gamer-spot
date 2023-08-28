@@ -13,7 +13,7 @@ export default async function handler(
     if (!session)
       return res
         .status(401)
-        .json({ message: "Proszę zaloguj się by stworzyć posta!" });
+        .json({ message: "Log in" });
     //getting users posts
     try {
       const data = await prisma.user.findUnique({
@@ -40,7 +40,7 @@ export default async function handler(
       });
       res.status(200).json(data);
     } catch (err) {
-      return res.status(403).json({ message: "no coś się zjebało byq" });
+      return res.status(403).json({ message: "Error" });
     }
   }
 }

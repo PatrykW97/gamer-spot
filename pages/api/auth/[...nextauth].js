@@ -16,7 +16,7 @@ const authenticateUser = async (credentials) => {
   });
 
   if (!user) {
-    throw new Error("Nieprawidłowy email lub hasło");
+    throw new Error("nie ma uzytkownika");
   }
 
   const isValidPassword = await argon2.verify(
@@ -27,43 +27,76 @@ const authenticateUser = async (credentials) => {
     throw new Error("Nieprawidłowy email lub hasło");
   }
 
-  return { id: user.id, email: user.email, name: user.name}; // Zwracamy rolę użytkownika
+  return { id: user.id, email: user.email, name: user.name}; 
 };
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma),
   secret: process.env.AUTH_SECRET,
+  session:{
+        strategy:"jwt"
+      },
   providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Username", type: "text" },
-        password: { label: "Password", type: "password" },
-      },
-      authorize: async (credentials) => {
-        if (!credentials) {
-          throw new Error("Brak danych uwierzytelniających");
-        }
-        return authenticateUser(credentials);
-      },
-    }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
+    CredentialsProvider({
+      name: "Email",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      async authenticateUser(credentials) {
+        const { email, password } = credentials;
+        console.log("check")
+        const user = await prisma.user.findUnique({
+          where: { email },
+        });
+        
+        if (!user) {
+          throw new Error("Wrong email or password");
+        }
+      
+        const isValidPassword = await argon2.verify(
+          user.hashedPassword ?? "",
+          password
+        );
+        if (!isValidPassword) {
+          throw new Error("Wrong email or password");
+        }
+      
+        return { id: user.id, email: user.email, name: user.name }; 
+      }
+    }),
   ],
   callbacks: {
-    async session({ session, user } ) {
-      session.user.id = user.id
-      return session;
+    session: ({ session, token }) => {
+       //console.log('Session Callback', { session, token })
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+        
+        }
+      }
     },
-     async jwt({ token } ) {
-       return token
-       }
+    jwt: ({ token, user }) => {
+       //console.log('JWT Callback', { token, user })
+      if (user) {
+        const u = user
+        return {
+          ...token,
+          id: u.id,
+          
+        }
+      }
+      return token
+    }
+    
   },
-  //  session:{
-  //    strategy:"jwt"
-  //  }
+  
   
 };
 export default NextAuth(authOptions);

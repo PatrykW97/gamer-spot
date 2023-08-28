@@ -15,6 +15,7 @@ export default async function handler(
       return res.status(401).json({ message: "Proszę zaloguj się by stworzyć posta!" });
 
     const title: string = req.body.title;
+    // const image = req.file.path;
 
     const prismaUser = await prisma.user.findUnique({
       where: { email: session?.user?.email },

@@ -4,9 +4,15 @@ import { useState, useRef } from "react";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
+interface PostData {
+  title: string;
+  image?: File; 
+}
+
 export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
   const quertClient = useQueryClient();
   let toastPostID: string;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -18,7 +24,7 @@ export default function CreatePost() {
       onError: (error) => {
         if (error instanceof AxiosError) {
           toast.dismiss(toastPostID);
-          console.log(error)
+          console.log(error);
           toast.error(error?.response?.data.message);
         }
         setIsDisabled(false);
@@ -37,6 +43,7 @@ export default function CreatePost() {
     toastPostID = toast.loading("Creating your post", { id: toastPostID });
     setIsDisabled(true);
     mutate(title);
+
   };
   const handleTextareaInput = (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -52,7 +59,10 @@ export default function CreatePost() {
       textarea.style.height = textarea.scrollHeight + "px";
     }
   };
-
+  const handleImageChange = (event: any) => {
+    const imageFile = event.target.files[0];
+    setSelectedImage(imageFile);
+  };
   return (
     <form
       onSubmit={submitPost}
@@ -67,6 +77,37 @@ export default function CreatePost() {
           className="resize-none w-full p-4 text-lg rounded-md my-2 bg-gradient-to-tl from-blue-200 via-purple-200 to-pink-200  "
           placeholder="title"
         ></textarea>
+        <input
+          type="file"
+          accept="image/*"
+          id="fileInput"
+          className="hidden"
+          onChange={handleImageChange}
+        />
+        <label
+          htmlFor="fileInput"
+          className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg w-1/3 text-center"
+        >
+          {" "}
+          {selectedImage ? "Image selected" : "Pick image"}
+        </label>
+        <div className="mt-4">
+          {selectedImage && (
+            <img
+              src={URL.createObjectURL(selectedImage)}
+              alt="image preview"
+              className="max-h-40 mt-2"
+            />
+          )}
+          {selectedImage && (
+            <button
+              className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg text-center"
+              onClick={() => setSelectedImage(null)}
+            >
+              Delete image{" "}
+            </button>
+          )}
+        </div>
       </div>
       <div className="flex items-center justify-between gap-2">
         <p
@@ -76,10 +117,10 @@ export default function CreatePost() {
         >{`${title.length}/300`}</p>
         <button
           disabled={isDisabled}
-          className="text-sm bg-gray-500 text-white p-2 rounded-xl disabled:opacity-25 hover:bg-green-400"
+          className="text-sm bg-blue-500 text-white p-2 rounded-xl disabled:opacity-25 hover:bg-green-400"
           type="submit"
         >
-          Wyślij to!
+          Send post!
         </button>
       </div>
     </form>

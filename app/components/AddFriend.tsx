@@ -21,6 +21,7 @@ export default function AddFriend({userBId}:userIdType){
             toast.dismiss(toastFrientID);
             toast.success("Friendship request created!");
           },
+          
         }
       );
       const createFriendship = async () => {
