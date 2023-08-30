@@ -5,8 +5,8 @@ import { Roboto } from "next/font/google";
 import Nav from "./auth/Nav";
 import QueryWrapper from "./auth/QueryWrapper";
 import { Toaster } from "react-hot-toast";
-import { getServerSession } from 'next-auth/next'
-import { authOptions } from "@/pages/api/auth/[...nextauth]"
+
+
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400","700"],
@@ -24,16 +24,16 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
 
-  const session = await getServerSession(authOptions)
-
   return (
     <html lang="en">
-      <body className={`min-h-screen mx-4 flex flex-col  ${roboto.variable} bg-gradient-to-tl from-blue-800 via-purple-700 to-pink-800 `}>
+      <body className={`min-h-screen flex flex-col  ${roboto.variable} bg-customGreen `}>
+     
         <QueryWrapper>
         <Toaster />
         <Nav />
         {children}
         </QueryWrapper>
+      
       </body>
     </html>
   );

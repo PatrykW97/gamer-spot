@@ -1,20 +1,21 @@
+
 import Link from "next/link"
 import Login from "./Login"
-import { getServerSession } from 'next-auth/next'
-import { authOptions } from "@/pages/api/auth/[...nextauth]"
 import Logged from "./Loggged"
-
+import { getCurrentUser } from "../session"
+import DropdownMenu from "./DropdownMenu"
 export default async function Nav() {
-    const session = await getServerSession(authOptions)
-    console.log(session)
+
+    const user = await getCurrentUser()
+
     return(
     <nav className="flex justify-evenly items-center py-8">
         <Link href={'/'}>
-        <h1 className="font-bold text-2xl text-white py-2 shadow-xl px-2">Gamer Spot.</h1>
+        <h1 className="font-bold lg:text-2xl text-xl text-white py-2 shadow-xl px-2 hidden lg:block ">Gamer Spot.</h1>
         </Link>
         <ul className="flex items-center gap-6">
-            {!session?.user && <Login />}
-            {session?.user && <Logged image={session.user?.image || ''} />}
+            {!user && <Login />}
+            {user && <Logged image={user?.image || ''} />}
         </ul>
     </nav>
     )
