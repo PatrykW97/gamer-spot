@@ -13,14 +13,26 @@ export default async function handler(
     if (!session) return res.status(401).json({ message: "Log in" });
 
     try {
-      const data = await prisma.user.findUnique({
+      const data = await prisma.friendship.findMany({
         where: {
-          email: session?.user?.email,
+          AND: [
+            {
+              OR: [
+                { userAId: session?.user?.id },
+                { userBId: session?.user?.id },
+              ],
+            },
+            { isConfirmed: true },
+          ],
+        },
+        include: {
+          userA: true,
+          userB: true,
         },
       });
       res.status(200).json(data);
     } catch (err) {
-      return res.status(403).json({ message: "no coś się zjebało byq" });
+      return res.status(403).json({ message: "Error" });
     }
   }
 }

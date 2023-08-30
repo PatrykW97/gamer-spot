@@ -15,6 +15,7 @@ model Post {
     published Boolean   @default(false)
     userId    String
     image     String?
+    belonging String    @default("public")
     user      User      @relation(fields: [userId], references: [id])
     Comment   Comment[]
 }

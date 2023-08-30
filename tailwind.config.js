@@ -8,10 +8,13 @@ module.exports = {
   theme: {
     extend: {
       backgroundColor: {
-        "customBlue" : "#8320B8",
-        "customPurple" :"#921B79"
+        "customBlue" : "#242D6C",
+        "customPurple" :"#921B79",
+        "customYellow" :"#F29A1C",
+        "customGreen" : "#32936F"
       },
     },
+    
   },
   plugins: [],
 };

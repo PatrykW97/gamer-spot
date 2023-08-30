@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import FacebookProvider from "next-auth/providers/facebook";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -33,13 +34,17 @@ const authenticateUser = async (credentials) => {
 export const authOptions = {
   adapter: PrismaAdapter(prisma),
   secret: process.env.AUTH_SECRET,
-  session:{
-        strategy:"jwt"
-      },
+  // session:{
+  //       strategy:"jwt"
+  //     },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET
     }),
     CredentialsProvider({
       name: "Email",
@@ -71,29 +76,30 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    session: ({ session, token }) => {
+    session: ({ session, user, token }) => {
        //console.log('Session Callback', { session, token })
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id,
-        
-        }
-      }
+      // return {
+      //   ...session,
+      //   user: {
+      //     ...session.user,
+      //     id: token.id,
+        session.user.id = user.id
+      //   }
+      // }
+      return session
     },
-    jwt: ({ token, user }) => {
-       //console.log('JWT Callback', { token, user })
-      if (user) {
-        const u = user
-        return {
-          ...token,
-          id: u.id,
+    // jwt: ({ token, user }) => {
+    //    //console.log('JWT Callback', { token, user })
+    //   if (user) {
+    //     const u = user
+    //     return {
+    //       ...token,
+    //       id: u.id,
           
-        }
-      }
-      return token
-    }
+    //     }
+    //   }
+    //   return token
+    // }
     
   },
   

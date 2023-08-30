@@ -12,9 +12,9 @@ export default async function handler(
     const session = await getServerSession(req, res, authOptions);
 
     if (!session)
-      return res.status(401).json({ message: "Proszę zaloguj się by stworzyć posta!" });
+      return res.status(401).json({ message: "Log in!" });
 
-    const title: string = req.body.title;
+      const {title, image, belongsTo} = req.body.data
     // const image = req.file.path;
 
     const prismaUser = await prisma.user.findUnique({
@@ -22,19 +22,21 @@ export default async function handler(
     });
 
     if (title.length > 300)
-      return res.status(403).json({ message: "masz za długiego... posta" });
-    if (!title.length) return res.status(403).json({ message : "napisz coś"})
+      return res.status(403).json({ message: "The post is too long" });
+    if (!title.length) return res.status(403).json({ message : "Post is empty"})
 
     try {
       const result = await prisma.post.create({
         data: {
           title,
+          image,
+          belonging: belongsTo,
           userId: prismaUser.id,
         },
       });
       res.status(200).json(result);
     } catch (err) {
-        return res.status(403).json({ message : "no coś się zjebało byq"})
+        return res.status(403).json({ message : "Error"})
     }
   }
 }

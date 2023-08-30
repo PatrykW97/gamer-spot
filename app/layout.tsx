@@ -26,7 +26,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`min-h-screen mx-4 flex flex-col  ${roboto.variable} bg-gradient-to-tl from-blue-800 via-purple-700 to-pink-800 `}>
+      <body className={`min-h-screen flex flex-col  ${roboto.variable} bg-customGreen `}>
      
         <QueryWrapper>
         <Toaster />

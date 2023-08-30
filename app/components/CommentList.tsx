@@ -24,7 +24,7 @@ type CommentInfo = {
 };
 
 const fetchAuthPost = async () => {
-  const response = await axios.get("api/posts/authComments");
+  const response = await axios.get("api/posts/manageComments");
   return response.data;
 };
 
@@ -39,7 +39,7 @@ export default function CommentList({ comment }: CommentInfo) {
   
   const { mutate } = useMutation(
     async (id: string) =>
-      await axios.delete("/api/posts/deleteComment", { data: id }),
+      await axios.delete("/api/posts/manageComments", { data: id }),
     {
       onError: (error) => {
         toast.dismiss(deleteToastID);
@@ -59,6 +59,7 @@ export default function CommentList({ comment }: CommentInfo) {
     mutate(comment.id);
     setToggle(false);
   };
+  
   return (
     <>
       <div className="comment-list py-4 ">

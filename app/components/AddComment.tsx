@@ -24,12 +24,15 @@ export default function AddComment({ id, setShowAddComment }: PostProps) {
 
   const { mutate } = useMutation(
     async (data: Comment) =>
-      await axios.post("/api/posts/addComment", { data }),
+      await axios.post("/api/posts/manageComments", { data }),
     {
       onSuccess: (data) => {
         setTitle("");
         setIsDisabled(false);
-        queryClient.invalidateQueries(["detail-post"]);
+        queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["csgo-posts"]);
+        queryClient.invalidateQueries(["league-posts"]);
+        queryClient.invalidateQueries(["valorant-posts"]);
         toast.dismiss(commentToastId);
         toast.success("Added comment");
       },
@@ -44,8 +47,7 @@ export default function AddComment({ id, setShowAddComment }: PostProps) {
   );
   const addComment = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsDisabled(true);
-    setShowAddComment(false);
+    setIsDisabled(true)
     commentToastId = toast.loading("Adding comment", { id: commentToastId });
     mutate({ title, postId: id });
   };

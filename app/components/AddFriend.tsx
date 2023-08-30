@@ -1,13 +1,16 @@
 "use client"
 
-import { useMutation } from "@tanstack/react-query";
+
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
+import { useMutation } from "@tanstack/react-query";
+
 type userIdType = {
     userBId:string
 }
 export default function AddFriend({userBId}:userIdType){
     let toastFrientID: string;
+    
     const { mutate } = useMutation(
         async (userBId: string) => await axios.post("/api/posts/createFriendship", { userBId }),
         {

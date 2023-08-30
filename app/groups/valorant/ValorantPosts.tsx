@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
-import CommentList from "./CommentList";
-import AddComment from "./AddComment";
+import CommentList from "../../components/CommentList";
+import AddComment from "../../components/AddComment";
 import Link from "next/link";
 import ModalImage from "react-modal-image";
 
@@ -28,7 +28,7 @@ type PostInfo = {
   }[];
 };
 
-export default function PostElement({
+export default function ValorantPosts({
   avatar,
   belonging,
   name,
@@ -46,7 +46,7 @@ export default function PostElement({
     setShowComments(!showComments);
   };
   return (
-    <div className="bg-white my-4 p-4 rounded-xl xl:w-2/3 md:w-1/2 w-3/4">
+    <div className="bg-gradient-to-br from-white via-white to-red-300  my-4 p-4 rounded-xl xl:w-1/3 md:w-1/2 w-3/4">
       <Link className="w-1/2" href={`/user/${userId}`}>
         <div className="flex items-center gap-2">
           <Image
@@ -56,12 +56,12 @@ export default function PostElement({
             src={avatar}
             alt="avatar"
           />
-          <h3 className="font-bold text-gray-700">{name}</h3>
-          <h2>{belonging}</h2>
+          <h3 className="font-bold text-[#FF4655]">{name}</h3>
+          <h2 className="text-black">{belonging}</h2>
         </div>
       </Link>
       <div className="mt-8">
-        <p className="break-all">{postTitle}</p>
+        <p className="break-all text-black">{postTitle}</p>
       </div>
       <div className="p-4 flex">
       {image && <ModalImage
@@ -76,7 +76,7 @@ export default function PostElement({
           </div>
       <div className="flex gap-4 cursor items-center">
         <button onClick={toggleCommentView}>
-          <p className="text-sm font-bold text-gray-700 ">
+          <p className="text-sm font-bold text-[#FF4655] ">
             {comments?.length} Comments
           </p>
         </button>

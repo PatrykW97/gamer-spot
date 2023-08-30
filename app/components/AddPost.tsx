@@ -1,30 +1,30 @@
 "use client";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import { useState, useRef } from "react";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 interface PostData {
+  belongsTo: string;
   title: string;
-  image?: File; 
+  image?: File;
 }
 
-export default function CreatePost() {
+export default function CreatePost({belonging}:any) {
   const [title, setTitle] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const quertClient = useQueryClient();
+  const queryClient = useQueryClient();
   let toastPostID: string;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   //Create a post
   const { mutate } = useMutation(
-    async (title: string) => await axios.post("/api/posts/addPost", { title }),
+    async (data:PostData) => await axios.post("/api/posts/addPost", { data }),
     {
       onError: (error) => {
         if (error instanceof AxiosError) {
           toast.dismiss(toastPostID);
-          console.log(error);
           toast.error(error?.response?.data.message);
         }
         setIsDisabled(false);
@@ -32,7 +32,10 @@ export default function CreatePost() {
       onSuccess: (data) => {
         toast.dismiss(toastPostID);
         toast.success("post has been made");
-        quertClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["posts"]);
+        queryClient.invalidateQueries(["csgo-posts"]);
+        queryClient.invalidateQueries(["league-posts"]);
+        queryClient.invalidateQueries(["valorant-posts"]);
         setTitle("");
         setIsDisabled(false);
       },
@@ -41,9 +44,22 @@ export default function CreatePost() {
   const submitPost = async (e: React.FormEvent) => {
     e.preventDefault();
     toastPostID = toast.loading("Creating your post", { id: toastPostID });
-    setIsDisabled(true);
-    mutate(title);
+    console.log(selectedImage);
 
+    const formData = new FormData();
+    if (selectedImage) formData.append("file", selectedImage);
+
+    formData.append("upload_preset", "user-uploads");
+    const data = await fetch(
+      "https://api.cloudinary.com/v1_1/dk9ro1nmb/image/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    ).then((r) => r.json());
+    setIsDisabled(true);
+    setSelectedImage(null)
+    mutate({title, image: data.secure_url, belongsTo:belonging});
   };
   const handleTextareaInput = (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -64,9 +80,10 @@ export default function CreatePost() {
     setSelectedImage(imageFile);
   };
   return (
+    <div className="w-full flex justify-center items center">
     <form
       onSubmit={submitPost}
-      className="bg-white m-8 p-4 rounded-md xl:w-1/3 md:w-1/2 w-3/4"
+      className="bg-white m-8 p-4 rounded-md xl:w-2/3 md:w-1/2 w-3/4"
     >
       <div className="flex flex-col my-4">
         <textarea
@@ -124,5 +141,6 @@ export default function CreatePost() {
         </button>
       </div>
     </form>
+    </div>
   );
 }

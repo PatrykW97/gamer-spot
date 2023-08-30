@@ -8,12 +8,14 @@ export default function MyPosts({data}:any) {
     <>
       {data?.Post?.map((post:any) => (
         <EditPost
+          image={post.image}
           id={post.id}
           key={post.id}
           avatar={data.image}
           name={data.name}
           title={post.title}
           comments={post.Comment}
+          belonging={post.belonging}
         />
       ))}
     </>

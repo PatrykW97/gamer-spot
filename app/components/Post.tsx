@@ -32,6 +32,8 @@ export default function Post() {
           postTitle={post.title}
           id={post.id}
           userId={post.user.id}
+          image={post.image}
+          belonging={post.belonging}
         />
       ))}
     </div>

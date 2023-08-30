@@ -20,19 +20,18 @@ export default function MyDashboard({ user }: any) {
   const { data, isLoading } = useQuery<AuthUser>({
     queryFn: getUserInfo,
     queryKey: ["user-info"],
-  });
+  }); 
   if (isLoading) return <h1>Loading posts...</h1>;
-  console.log(data)
   return (
-    <div>
+    <div className="flex justify-center flex-col items-center">
     <div className="flex justify-center mb-8">
       <h1 className="text-2xl text-white font-bold">Pronto {user?.name}</h1>
     </div>
 
-    <div className="grid grid-cols-4 gap-10">
+    <div className="lg:grid grid-cols-3 lg:gap-10 sm:flex sm:flex-col w-3/4">
       <div>
         <button
-          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded w-full"
+          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4  mb-2 rounded w-full"
           onClick={()=>setShowAccountInfo(!showAccountInfo)}
         >
           My account
@@ -41,7 +40,7 @@ export default function MyDashboard({ user }: any) {
       </div>
       <div>
         <button
-          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded w-full"
+          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 mb-2 rounded w-full"
           onClick={()=>setShowMyPosts(!showMyPosts)}
         >
           My posts
@@ -50,21 +49,13 @@ export default function MyDashboard({ user }: any) {
       </div>
       <div>
         <button
-          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded w-full"
+          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 mb-2 rounded w-full"
           onClick={()=>setShowMyFriends(!showMyFriends)}
         >
           My friends
         </button>
         {showMyFriends && <MyFriends user={user} />}
       </div>
-      <div>
-      <button
-          className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded w-full"
-        >
-          My groups
-        </button>
-      </div>
-      
     </div>
   </div>
   );

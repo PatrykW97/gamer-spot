@@ -1,21 +1,29 @@
 
 
 //import components
-import AddPost from "./components/AddPost";
+import CreatePost from "./components/AddPost";
 import Post from "./components/Post";
 import WelcomePage from "./components/WelcomePage";
-
+import GroupsContainer from "./components/GroupsContainer";
 import { getCurrentUser } from "./session"
-
+import { useState } from "react";
 export default async function Home() {
+
   const user = await getCurrentUser()
-  console.log(user)
   return (
-    <main className="flex flex-col items-center">
-      {/* Rendering components */}
-      {user && <AddPost />}
-      {user && <Post />}
-      {!user && <WelcomePage />}
+    <main className="flex flex-start">
+      {user&& <GroupsContainer />} 
+      {user &&  
+      <div className="w-full md:w-1/2 ">
+        <div className="flex justify-center items-center w-full">
+          <CreatePost />
+        </div>
+       <Post />
+      </div>
+      }
+      {!user &&<div className="flex justify-center items-center w-full"> <WelcomePage /></div>}
+      
+      
     </main>
   );
 }
