@@ -7,6 +7,7 @@ export default function MyAccount({ data }: any) {
       <h1>Nickname: {data.nickname}</h1>
       <h1>Email: {data.email}</h1>
       <h1>Birthday:</h1>
+      <button>edit</button>
     </div>
   );
 }

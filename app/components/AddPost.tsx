@@ -47,7 +47,7 @@ export default function CreatePost({ belonging }: any) {
     console.log(selectedImage);
 
     const formData = new FormData();
-    if (selectedImage) formData.append("file", selectedImage);
+    if (selectedImage){ formData.append("file", selectedImage);
 
     formData.append("upload_preset", "user-uploads");
     const data = await fetch(
@@ -56,10 +56,13 @@ export default function CreatePost({ belonging }: any) {
         method: "POST",
         body: formData,
       }
-    ).then((r) => r.json());
+    ).then((res) => res.json());
+    mutate({ title, image: data.secure_url, belongsTo: belonging });
+    }
+    else mutate({ title, belongsTo: belonging });
+
     setIsDisabled(true);
     setSelectedImage(null);
-    mutate({ title, image: data.secure_url, belongsTo: belonging });
   };
   const handleTextareaInput = (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -83,7 +86,7 @@ export default function CreatePost({ belonging }: any) {
     <div className="w-full flex justify-center items center">
       <form
         onSubmit={submitPost}
-        className="bg-white m-8 p-4 rounded-md xl:w-2/3 md:w-1/2 w-3/4"
+        className=" bg-white m-8 p-4 rounded-md xl:w-2/3 md:w-1/2 w-3/4"
       >
         <div className="flex flex-col my-4">
           <textarea

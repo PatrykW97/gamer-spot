@@ -46,7 +46,7 @@ export default function ValorantPosts({
     setShowComments(!showComments);
   };
   return (
-    <div className="bg-gradient-to-br from-white via-white to-red-300  my-4 p-4 rounded-xl xl:w-1/3 md:w-1/2 w-3/4">
+    <div className="bg-gradient-to-br from-white via-white to-red-300  my-4 p-4 rounded-xl xl:w-2/3 md:w-1/2 w-3/4">
       <Link className="w-1/2" href={`/user/${userId}`}>
         <div className="flex items-center gap-2">
           <Image

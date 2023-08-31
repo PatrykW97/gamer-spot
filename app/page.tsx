@@ -4,7 +4,6 @@ import Post from "./components/Post";
 import WelcomePage from "./components/WelcomePage";
 import GroupsContainer from "./components/GroupsContainer";
 import { getCurrentUser } from "./session";
-import { useState } from "react";
 export default async function Home() {
   const user = await getCurrentUser();
   return (
@@ -20,7 +19,6 @@ export default async function Home() {
       )}
       {!user && (
         <div className="flex justify-center items-center w-full">
-          {" "}
           <WelcomePage />
         </div>
       )}

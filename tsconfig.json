@@ -30,11 +30,12 @@
     }
   },
   "include": [
+    "process.d.ts",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "types/**/*.ts",
-    "pages/api/auth/[...nextauth].js",
+    "pages/api/auth/[...nextauth].ts",
     "prisma/client.js",
     ".next/types/**/*.ts"
   ],

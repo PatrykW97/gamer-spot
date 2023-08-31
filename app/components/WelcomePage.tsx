@@ -6,8 +6,8 @@ import UserRegister from "./UserRegister";
 export default function WelcomePage() {
   return (
     <div>
-      <div className="flex items-center justify-center flex-col bg-white bg-opacity-20">
-        <h1 className="font-bold text-2xl text-white py-10">
+      <div className="flex items-center justify-center flex-col bg-white bg-opacity-20 pb-10 lg:pb-20 px-4 text-center">
+        <h1 className="font-bold text-2xl text-white py-10 ">
           Hey there fellow gamer!
         </h1>
         <p className="font-bold text-lg text-white">Welcome to Gamer Spot</p>
@@ -19,12 +19,6 @@ export default function WelcomePage() {
           Add friends, join groups, comment posts and enjoy the only space
           dedicated for gamers
         </p>
-        <button
-          onClick={() => signIn()}
-          className=" bg-customBlue font-bold text-xl text-white my-10 px-4 py-4 hover:bg-opacity-40 rounded-xl"
-        >
-          Sign in now!
-        </button>
       </div>
       <UserRegister />
     </div>

@@ -1,47 +1,53 @@
-"use client"
-import AddComment from "@/app/components/AddComment";
-import AddFriend from "@/app/components/AddFriend";
+"use client";
 
-import Post from "@/app/components/Post";
+import AddFriend from "@/app/components/AddFriend";
+import { AuthUser } from "@/app/types/AuthUser";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
 import PostElement from "@/app/components/PostElement";
 type URL = {
   params: {
-    slug: string,
-  },
+    slug: string;
+  };
 };
 
 const fetchDetails = async (slug: string) => {
   const response = await axios.get(`/api/posts/${slug}`);
   return response.data;
 };
-export default function UserDetail(url:URL) {
-  const { data, isLoading } = useQuery({
+export default function UserProfile(url: URL) {
+     const { data, isLoading } = useQuery<AuthUser>({
     queryKey: ["detail-user"],
     queryFn: () => fetchDetails(url.params.slug),
   });
   if (isLoading) return "Loading...";
   return (
     <div>
-      <div className="flex justify-center mb-8">
-        <h1 className="text-2xl text-white font-bold">Witaj na profilu użytkownika {data.name}</h1>
-        
-        <AddFriend  userBId={data.id}/>
-        {/* {data?.map((post) => (
-        <PostElement
-          comments={post.Comment}
-          key={post.id}
-          name={post.user.name}
-          avatar={post.user.image}
-          postTitle={post.title}
-          id={post.id}
-          userId={post.user.id}
-          image={post.image}
-          belonging={post.belonging}
-        />
-      ))} */}
+      <div className="flex justify-center flex-col items-center">
+        <div className="flex gap-10 items-center">
+        <h1 className="text-lg lg:text-2xl text-wrap text-white font-bold">
+          Witaj na profilu użytkownika{" "}
+          {data?.nickname ? data.nickname : data?.name}
+        </h1>
+
+        {data && <AddFriend userBId={data.id} />}
+        </div>
+        <div className="w-full lg:w-1/2 flex items-center flex-col">
+        {data?.Post.map((post) => (
+          <PostElement
+            comments={post.Comment}
+            key={post.id}
+            name={data.name}
+            avatar={data.image}
+            postTitle={post.title}
+            id={post.id}
+            userId={post.userId}
+            image={post.image}
+            belonging={post.belonging}
+          />
+        ))}
+        </div>
       </div>
     </div>
   );

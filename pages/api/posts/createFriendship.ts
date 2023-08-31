@@ -10,8 +10,6 @@ export default async function handler(
   if (req.method === "POST") {
     const session = await getServerSession(req, res, authOptions);
 
-    console.log(req.body.userBId);
-    console.log(session?.user.id);
     const userBId: string = req.body.userBId;
 
     try {

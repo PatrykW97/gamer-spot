@@ -4,7 +4,6 @@ import Image from "next/image";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 type User = {
   image: string;
@@ -33,7 +32,7 @@ export default function Logged({ image }: User) {
         <option value="/groups/leagueoflegends">League of legends</option>
         <option value="/groups/csgo">CS:GO</option>
       </select>
-
+    
       <button
         onClick={handleSignOut}
         className="bg-blue-500 hover:bg-blue-600 text-white text-lg  px-2 lg:px-6 py-2 rounded-xl"

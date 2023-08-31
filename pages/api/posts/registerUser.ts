@@ -10,7 +10,7 @@ export default async function handler(
     const { name, nickname, email, password } = req.body.data;
     console.log(req.body.data);
     try {
-      // Sprawdź, czy istnieje użytkownik o takim samym emailu lub nazwie użytkownika
+
       const existingUser = await prisma.user.findFirst({
         where: {
           OR: [{ email }, { name }],
@@ -26,18 +26,14 @@ export default async function handler(
           });
       }
 
-      // Hashuj hasło przed zapisaniem w bazie danych
       const hashedPassword = await argon2.hash(password);
 
-      // Stwórz nowego użytkownika w bazie danych
       const newUser = await prisma.user.create({
         data: {
           nickname,
           name,
           email,
           hashedPassword,
-          // Używamy zahashowanego hasła
-          // Możesz dodać dodatkowe pola, jeśli są potrzebne
         },
       });
 

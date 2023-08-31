@@ -62,7 +62,7 @@ model User {
     name           String?
     nickname       String?
     email          String?      @unique
-    image          String?      @default("https://lh3.googleusercontent.com/a/AAcHTtdeQNGhDUxaD0l-iZUJKYI6TqWw9B9nEcCssgaw2Joi68Y=s96-c")
+    image          String?      @default("https://res.cloudinary.com/dk9ro1nmb/image/upload/v1693520437/userDefaultImage_mi3nmm.png")
     birthday       String?
     hashedPassword String?
     accounts       Account[]

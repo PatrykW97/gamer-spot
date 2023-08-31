@@ -33,8 +33,8 @@ export default function AddFriend({ userBId }: userIdType) {
     mutate(userBId);
   };
   return (
-    <div>
-      <button onClick={createFriendship}>Add friend</button>
+    <div >
+      <button className="bg-blue-500 hover:bg-blue-600 text-white text-lg  px-2 lg:px-6 py-2 rounded-xl" onClick={createFriendship}>Add friend</button>
     </div>
   );
 }
