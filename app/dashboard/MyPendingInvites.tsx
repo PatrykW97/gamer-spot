@@ -21,7 +21,10 @@ const fetchPendingInvites = async () => {
   return response.data;
 };
 
-export default function MyPendingInvites({ user, removeFriend }: SessionUserInfo) {
+export default function MyPendingInvites({
+  user,
+  removeFriend,
+}: SessionUserInfo) {
   let toastFriendID: string;
   const queryClient = useQueryClient();
   const { mutate } = useMutation(
@@ -44,7 +47,7 @@ export default function MyPendingInvites({ user, removeFriend }: SessionUserInfo
     toastFriendID = toast.loading("Adding friend", { id: toastFriendID });
     mutate(friendshipId);
   };
- 
+
   const { data, isLoading } = useQuery<FriendType>({
     queryFn: fetchPendingInvites,
     queryKey: ["friend-invites"],
@@ -90,7 +93,7 @@ export default function MyPendingInvites({ user, removeFriend }: SessionUserInfo
                 className=" hover:bg-red-500 rounded-lg p-2"
                 onClick={() => removeFriend(friend.id)}
               >
-               <FaXmark />
+                <FaXmark />
               </button>
             </div>
           ) : (

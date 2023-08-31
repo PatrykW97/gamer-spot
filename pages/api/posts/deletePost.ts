@@ -11,19 +11,20 @@ export default async function handler(
     const session = await getServerSession(req, res, authOptions);
 
     if (!session)
-      return res.status(401).json({ message: "Proszę zaloguj się by stworzyć posta!" });
+      return res
+        .status(401)
+        .json({ message: "Proszę zaloguj się by stworzyć posta!" });
     //getting users posts
     try {
-        const postId = req.body
-        const result = await prisma.post.delete({
-            where:{
-                id: postId
-            }
-        })
+      const postId = req.body;
+      const result = await prisma.post.delete({
+        where: {
+          id: postId,
+        },
+      });
       res.status(200).json(result);
     } catch (err) {
-        return res.status(403).json({ message : "no coś się zjebało byq"})
+      return res.status(403).json({ message: "no coś się zjebało byq" });
     }
   }
 }
-

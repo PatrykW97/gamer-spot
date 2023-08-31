@@ -1,6 +1,12 @@
 import ValorantPage from "./ValorantPage";
-export default function valorant() {
- 
+import { getCurrentUser } from "../../session"
+import { redirect } from "next/navigation"
+
+export default async function valorant() {
+  const user = await getCurrentUser()
+    if(!user){
+        redirect('/api/auth/signin')
+    }
   return (
     <div>
       <ValorantPage />

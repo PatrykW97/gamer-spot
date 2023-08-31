@@ -9,7 +9,7 @@ type PostInfo = {
   avatar: string;
   name: string;
   postTitle: string;
-  image?: string
+  image?: string;
   id: string;
   userId: string;
   belonging: string;
@@ -36,7 +36,7 @@ export default function CsgoPosts({
   postTitle,
   id,
   comments,
-  userId
+  userId,
 }: PostInfo) {
   const [showComments, setShowComments] = useState(false);
   const [showAddComment, setShowAddComment] = useState(false);
@@ -64,16 +64,18 @@ export default function CsgoPosts({
         <p className="break-all text-white">{postTitle}</p>
       </div>
       <div className="p-4 flex">
-      {image && <ModalImage
-             small={image}
-             large={image}
-             alt={postTitle}
-             hideDownload={true}
-             hideZoom={true}
-             className="cursor-pointer w-1/2"
-             imageBackgroundColor="transparent"
-          />}
-          </div>
+        {image && (
+          <ModalImage
+            small={image}
+            large={image}
+            alt={postTitle}
+            hideDownload={true}
+            hideZoom={true}
+            className="cursor-pointer w-1/2"
+            imageBackgroundColor="transparent"
+          />
+        )}
+      </div>
       <div className="flex gap-4 cursor items-center">
         <button onClick={toggleCommentView}>
           <p className="text-sm font-bold text-[#F29A1C] ">

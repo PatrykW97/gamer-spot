@@ -36,7 +36,7 @@ export default function CommentList({ comment }: CommentInfo) {
   const [toggle, setToggle] = useState(false);
   let deleteToastID: string;
   const queryClient = useQueryClient();
-  
+
   const { mutate } = useMutation(
     async (id: string) =>
       await axios.delete("/api/posts/manageComments", { data: id }),
@@ -59,22 +59,22 @@ export default function CommentList({ comment }: CommentInfo) {
     mutate(comment.id);
     setToggle(false);
   };
-  
+
   return (
     <>
       <div className="comment-list py-4 ">
         <div className="py-4 bg-gray-300 flex justify-between rounded-md group">
-        <div className="flex justify-evenly items-center"><Image
-            width={32}
-            height={32}
-            src={comment.user?.image}
-            alt="avatar"
-            className="mx-4 rounded-full"
-            
-          />
-          <p className="px-4">{comment?.message}</p>
+          <div className="flex justify-evenly items-center">
+            <Image
+              width={32}
+              height={32}
+              src={comment.user?.image}
+              alt="avatar"
+              className="mx-4 rounded-full"
+            />
+            <p className="px-4">{comment?.message}</p>
           </div>
-          
+
           {comment.userId === data?.id && (
             <button
               onClick={(e) => setToggle(true)}
@@ -83,9 +83,7 @@ export default function CommentList({ comment }: CommentInfo) {
               Delete
             </button>
           )}
-          
         </div>
-        
       </div>
       {toggle && <Toggle deleteComment={deleteComment} setToggle={setToggle} />}
     </>

@@ -22,11 +22,11 @@ type EditProps = {
     postId: string;
     userId: string;
     user: {
-        email: string;
-        id: string;
-        image: string;
-        name: string;
-      };
+      email: string;
+      id: string;
+      image: string;
+      name: string;
+    };
   }[];
 };
 export default function EditPost({
@@ -36,7 +36,7 @@ export default function EditPost({
   title,
   comments,
   id,
-  belonging
+  belonging,
 }: EditProps) {
   const [showComments, setShowComments] = useState(false);
   const [showAddComment, setShowAddComment] = useState(false);
@@ -81,28 +81,35 @@ export default function EditPost({
           <h3 className="font-bold text-gray-700">{name}</h3>
           <h2>{belonging}</h2>
         </div>
-        
+
         <div className="mt-8">
           <p className="break-normal">{title}</p>
         </div>
         <div className="p-4 flex">
-        {image && <ModalImage
-             small={image}
-             large={image}
-             alt={title}
-             hideDownload={true}
-             hideZoom={true}
-             className="cursor-pointer w-1/2"
-             imageBackgroundColor="transparent"
-          />}
-          </div>
+          {image && (
+            <ModalImage
+              small={image}
+              large={image}
+              alt={title}
+              hideDownload={true}
+              hideZoom={true}
+              className="cursor-pointer w-1/2"
+              imageBackgroundColor="transparent"
+            />
+          )}
+        </div>
         <div className="flex gap-4 cursor items-center">
           <button onClick={toggleCommentView}>
             <p className="text-sm font-bold text-gray-700">
               {comments?.length} Comments
             </p>
           </button>
-          <button onClick={(e)=> setToggle(true)} className="text-sm font-bold text-red-500" >Delete</button>
+          <button
+            onClick={(e) => setToggle(true)}
+            className="text-sm font-bold text-red-500"
+          >
+            Delete
+          </button>
         </div>
         {showComments &&
           comments?.map((comment, index) => (

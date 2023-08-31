@@ -7,7 +7,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  
   if (req.method === "GET") {
     const session = await getServerSession(req, res, authOptions);
 
@@ -16,58 +15,54 @@ export default async function handler(
     try {
       const data = await prisma.friendship.findMany({
         where: {
-            OR:[
-           {userAId: session?.user?.id},
-           {userBId: session?.user?.id}
-            ],
-            isConfirmed: false
-        },include:{
-            userA: true,
-            userB: true
-             
-        }
-     
+          OR: [{ userAId: session?.user?.id }, { userBId: session?.user?.id }],
+          isConfirmed: false,
+        },
+        include: {
+          userA: true,
+          userB: true,
+        },
       });
       res.status(200).json(data);
     } catch (err) {
       return res.status(403).json({ message: "Error" });
     }
   }
-  
+
   if (req.method === "PUT") {
     const session = await getServerSession(req, res, authOptions);
-    console.log(req.body)
-    console.log(session?.user.id)
+    console.log(req.body);
+    console.log(session?.user.id);
     const friendshipId: string = req.body.friendshipId;
-    
-     try {
+
+    try {
       const result = await prisma.friendship.update({
-        where:{
-          id:friendshipId
+        where: {
+          id: friendshipId,
         },
-        data:{
-          isConfirmed: true
-        }
-       });
-       res.status(200).json(result);
-     } catch (err) {
-         return res.status(403).json({ message : "Error"})
-     }
+        data: {
+          isConfirmed: true,
+        },
+      });
+      res.status(200).json(result);
+    } catch (err) {
+      return res.status(403).json({ message: "Error" });
+    }
   }
   if (req.method === "DELETE") {
     const session = await getServerSession(req, res, authOptions);
-    console.log(req.body)
+    console.log(req.body);
     const friendshipId: string = req.body;
-    
-     try {
+
+    try {
       const result = await prisma.friendship.delete({
-        where:{
-          id:friendshipId
+        where: {
+          id: friendshipId,
         },
-       });
-       res.status(200).json(result);
-     } catch (err) {
-         return res.status(403).json({ message : "Error"})
-     }
+      });
+      res.status(200).json(result);
+    } catch (err) {
+      return res.status(403).json({ message: "Error" });
+    }
   }
 }
