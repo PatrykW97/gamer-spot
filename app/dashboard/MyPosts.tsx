@@ -1,12 +1,11 @@
-"use client"
+"use client";
 import EditPost from "./EditPost";
 import { AuthUser } from "../types/AuthUser";
 
-export default function MyPosts({data}:any) {
- 
+export default function MyPosts({ data }: any) {
   return (
     <>
-      {data?.Post?.map((post:any) => (
+      {data?.Post?.map((post: any) => (
         <EditPost
           image={post.image}
           id={post.id}

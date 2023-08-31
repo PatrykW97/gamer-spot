@@ -11,8 +11,6 @@ const allPosts = async () => {
 };
 
 export default function Post() {
-
- 
   //Fetching post data
   const { data, error, isLoading } = useQuery<PostType[]>({
     queryFn: allPosts,
@@ -22,8 +20,7 @@ export default function Post() {
   if (isLoading) return "Loading....";
   return (
     <div className="flex flex-grow-2 flex-col items-center">
-    
-    {data?.map((post) => (
+      {data?.map((post) => (
         <PostElement
           comments={post.Comment}
           key={post.id}

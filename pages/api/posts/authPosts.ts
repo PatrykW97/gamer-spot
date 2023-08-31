@@ -10,10 +10,7 @@ export default async function handler(
   if (req.method === "GET") {
     const session = await getServerSession(req, res, authOptions);
 
-    if (!session)
-      return res
-        .status(401)
-        .json({ message: "Log in" });
+    if (!session) return res.status(401).json({ message: "Log in" });
     //getting users posts
     try {
       const data = await prisma.user.findUnique({
@@ -28,7 +25,7 @@ export default async function handler(
             include: {
               Comment: {
                 orderBy: {
-                  createdAt: "desc"
+                  createdAt: "desc",
                 },
                 include: {
                   user: true,

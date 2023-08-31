@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getCurrentUser } from "../../../app/session"
+import { getCurrentUser } from "../../../app/session";
 import { authOptions } from "../auth/[...nextauth]";
 import prisma from "../../../prisma/client";
 import { getServerSession } from "next-auth/next";
@@ -11,10 +11,9 @@ export default async function handler(
   if (req.method === "POST") {
     const session = await getServerSession(req, res, authOptions);
 
-    if (!session)
-      return res.status(401).json({ message: "Log in!" });
+    if (!session) return res.status(401).json({ message: "Log in!" });
 
-      const {title, image, belongsTo} = req.body.data
+    const { title, image, belongsTo } = req.body.data;
     // const image = req.file.path;
 
     const prismaUser = await prisma.user.findUnique({
@@ -23,7 +22,8 @@ export default async function handler(
 
     if (title.length > 300)
       return res.status(403).json({ message: "The post is too long" });
-    if (!title.length) return res.status(403).json({ message : "Post is empty"})
+    if (!title.length)
+      return res.status(403).json({ message: "Post is empty" });
 
     try {
       const result = await prisma.post.create({
@@ -36,7 +36,7 @@ export default async function handler(
       });
       res.status(200).json(result);
     } catch (err) {
-        return res.status(403).json({ message : "Error"})
+      return res.status(403).json({ message: "Error" });
     }
   }
 }

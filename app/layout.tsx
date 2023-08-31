@@ -1,4 +1,3 @@
-
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
@@ -6,12 +5,11 @@ import Nav from "./auth/Nav";
 import QueryWrapper from "./auth/QueryWrapper";
 import { Toaster } from "react-hot-toast";
 
-
 const roboto = Roboto({
   subsets: ["latin"],
-  weight: ["400","700"],
+  weight: ["400", "700"],
   variable: "--font-roboto",
-})
+});
 
 export const metadata: Metadata = {
   title: "Gamer Spot",
@@ -23,17 +21,16 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   return (
     <html lang="en">
-      <body className={`min-h-screen flex flex-col  ${roboto.variable} bg-customGreen `}>
-     
+      <body
+        className={`min-h-screen flex flex-col  ${roboto.variable} bg-gradient-to-tl from-blue-800 via-purple-700 to-pink-800`}
+      >
         <QueryWrapper>
-        <Toaster />
-        <Nav />
-        {children}
+          <Toaster />
+          <Nav />
+          {children}
         </QueryWrapper>
-      
       </body>
     </html>
   );

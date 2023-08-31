@@ -7,7 +7,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-
     try {
       const data = await prisma.user.findUnique({
         where: {
@@ -15,8 +14,8 @@ export default async function handler(
         },
         include: {
           Post: true,
-          friendshipsA :true,
-          friendshipsB:true
+          friendshipsA: true,
+          friendshipsB: true,
         },
       });
       res.status(200).json(data);
