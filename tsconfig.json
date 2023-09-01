@@ -37,7 +37,8 @@
     "types/**/*.ts",
     "pages/api/auth/[...nextauth].ts",
     "prisma/client.js",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "build/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
