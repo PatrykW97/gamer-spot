@@ -31,7 +31,7 @@ export default function UserRegister() {
       onError: (error) => {
         toast.dismiss(registerToastId);
         if (error instanceof AxiosError) {
-          toast.error("Brakuje danych");
+          toast.error("Somethink went wrong");
         }
       },
     }
@@ -39,7 +39,7 @@ export default function UserRegister() {
 
   const registerUser = async (e: React.FormEvent) => {
     e.preventDefault();
-    if(userPassword != userRepPassword || userEmail != userRepEmail) toast.error("Dane się nie zgadzają");
+    if(userPassword != userRepPassword || userEmail != userRepEmail) toast.error("Please make sure that email and password are correct");
     else {
       registerToastId = toast.loading("Registering u", { id: registerToastId });
       mutate({
@@ -62,7 +62,7 @@ export default function UserRegister() {
       ></input>
       <input
         type="text"
-        placeholder="User nickname(optiona)"
+        placeholder="User nickname(optional)"
         className="mb-2 w-full md:w-1/2 py-2 lg:w-1/2"
         onChange={(e) => setNickName(e.target.value)}
         value={nickName}

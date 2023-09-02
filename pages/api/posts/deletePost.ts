@@ -11,9 +11,7 @@ export default async function handler(
     const session = await getServerSession(req, res, authOptions);
 
     if (!session)
-      return res
-        .status(401)
-        .json({ message: "Proszę zaloguj się by stworzyć posta!" });
+      return res.status(401).json({ message: "Sign in to make a post!" });
     //getting users posts
     try {
       const postId = req.body;
@@ -24,7 +22,7 @@ export default async function handler(
       });
       res.status(200).json(result);
     } catch (err) {
-      return res.status(403).json({ message: "no coś się zjebało byq" });
+      return res.status(403).json({ message: "Error" });
     }
   }
 }

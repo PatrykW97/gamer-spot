@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import UserLogin from "./UserLogin";
 import UserRegister from "./UserRegister";
 export default function WelcomePage() {
   return (

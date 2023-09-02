@@ -44,20 +44,20 @@ export default function CreatePost({ belonging }: any) {
   const submitPost = async (e: React.FormEvent) => {
     e.preventDefault();
     toastPostID = toast.loading("Creating your post", { id: toastPostID });
-    console.log(selectedImage);
 
     const formData = new FormData();
-    if (selectedImage){ formData.append("file", selectedImage);
+    if (selectedImage) {
+      formData.append("file", selectedImage);
 
-    formData.append("upload_preset", "user-uploads");
-    const data = await fetch(
-      "https://api.cloudinary.com/v1_1/dk9ro1nmb/image/upload",
-      {
-        method: "POST",
-        body: formData,
-      }
-    ).then((res) => res.json());
-    mutate({ title, image: data.secure_url, belongsTo: belonging });
+      formData.append("upload_preset", "user-uploads");
+      const data = await fetch(
+        "https://api.cloudinary.com/v1_1/dk9ro1nmb/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      ).then((res) => res.json());
+      mutate({ title, image: data.secure_url, belongsTo: belonging });
     }
     else mutate({ title, belongsTo: belonging });
 
@@ -131,9 +131,8 @@ export default function CreatePost({ belonging }: any) {
         </div>
         <div className="flex items-center justify-between gap-2">
           <p
-            className={`font-bold text-sm ${
-              title.length > 300 ? "text-red-700" : " text-gray-700"
-            }`}
+            className={`font-bold text-sm ${title.length > 300 ? "text-red-700" : " text-gray-700"
+              }`}
           >{`${title.length}/300`}</p>
           <button
             disabled={isDisabled}

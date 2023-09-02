@@ -8,8 +8,8 @@ export default async function handler(
   if (req.method === "GET") {
     try {
       const data = await prisma.post.findMany({
-        where:{
-            belonging: 'valorant'
+        where: {
+          belonging: "valorant",
         },
         include: {
           user: true,

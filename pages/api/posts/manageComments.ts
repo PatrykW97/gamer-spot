@@ -10,47 +10,45 @@ export default async function handler(
   if (req.method === "POST") {
     const session = await getServerSession(req, res, authOptions);
 
-    if (!session)
-      return res.status(401).json({ message: "Please log in!" });
+    if (!session) return res.status(401).json({ message: "Please log in!" });
     //add comment
     const prismaUser = await prisma.user.findUnique({
-        where: {email: session?.user?.email},
-    })
+      where: { email: session?.user?.email },
+    });
     try {
-        const {title, postId} = req.body.data
+      const { title, postId } = req.body.data;
 
-        if(!title.length){
-            return res.status(401).json({message: "Comment empty"})
-        }
+      if (!title.length) {
+        return res.status(401).json({ message: "Comment empty" });
+      }
 
-        const result = await prisma.comment.create({
-            data:{
-                message: title,
-                userId: prismaUser?.id,
-                postId,
-            }
-        })
-        res.status(200).json(result)
+      const result = await prisma.comment.create({
+        data: {
+          message: title,
+          userId: prismaUser?.id,
+          postId,
+        },
+      });
+      res.status(200).json(result);
     } catch (err) {
-        return res.status(403).json({ message : "Something went wrong"})
+      return res.status(403).json({ message: "Something went wrong" });
     }
   }
   if (req.method === "DELETE") {
     const session = await getServerSession(req, res, authOptions);
 
-    if (!session)
-      return res.status(401).json({ message: "Zaloguj się" });
-    
+    if (!session) return res.status(401).json({ message: "Sign in" });
+
     try {
-        const commentId = req.body
-        const result = await prisma.comment.delete({
-            where:{
-                id: commentId
-            }
-        })
+      const commentId = req.body;
+      const result = await prisma.comment.delete({
+        where: {
+          id: commentId,
+        },
+      });
       res.status(200).json(result);
     } catch (err) {
-        return res.status(403).json({ message : "Something went wrong"})
+      return res.status(403).json({ message: "Something went wrong" });
     }
   }
   if (req.method === "GET") {
@@ -66,8 +64,7 @@ export default async function handler(
       });
       res.status(200).json(data);
     } catch (err) {
-      return res.status(403).json({ message: "no coś się zjebało byq" });
+      return res.status(403).json({ message: "Error" });
     }
   }
 }
-

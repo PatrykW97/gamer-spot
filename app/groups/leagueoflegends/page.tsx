@@ -4,12 +4,12 @@ import { redirect } from "next/navigation"
 
 export default async function leagueoflegends() {
   const user = await getCurrentUser()
-    if(!user){
-        redirect('/api/auth/signin')
-    }
+  if (!user) {
+    redirect('/api/auth/signin')
+  }
   return (
     <div>
-        <LeaguePage />
+      <LeaguePage />
     </div>
   );
 }
