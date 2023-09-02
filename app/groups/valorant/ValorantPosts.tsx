@@ -64,16 +64,16 @@ export default function ValorantPosts({
         <p className="break-all text-black">{postTitle}</p>
       </div>
       <div className="p-4 flex">
-      {image && <ModalImage
-             small={image}
-             large={image}
-             alt={postTitle}
-             hideDownload={true}
-             hideZoom={true}
-             className="cursor-pointer w-1/2"
-             imageBackgroundColor="transparent"
-          />}
-          </div>
+        {image && <ModalImage
+          small={image}
+          large={image}
+          alt={postTitle}
+          hideDownload={true}
+          hideZoom={true}
+          className="cursor-pointer w-1/2"
+          imageBackgroundColor="transparent"
+        />}
+      </div>
       <div className="flex gap-4 cursor items-center">
         <button onClick={toggleCommentView}>
           <p className="text-sm font-bold text-[#FF4655] ">

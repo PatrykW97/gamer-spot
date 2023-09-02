@@ -10,7 +10,6 @@ export default async function handler(
     const { name, nickname, email, password } = req.body.data;
     console.log(req.body.data);
     try {
-
       const existingUser = await prisma.user.findFirst({
         where: {
           OR: [{ email }, { name }],
@@ -18,12 +17,9 @@ export default async function handler(
       });
 
       if (existingUser) {
-        return res
-          .status(400)
-          .json({
-            error:
-              "Użytkownik o takim emailu lub nazwie użytkownika już istnieje",
-          });
+        return res.status(400).json({
+          error: "Email or username is alredy existing",
+        });
       }
 
       const hashedPassword = await argon2.hash(password);
@@ -37,16 +33,12 @@ export default async function handler(
         },
       });
 
-      return res
-        .status(201)
-        .json({ message: "Rejestracja zakończona sukcesem" });
+      return res.status(201).json({ message: "Success" });
     } catch (error) {
-      console.error("Błąd w obsłudze rejestracji:", error);
-      return res
-        .status(500)
-        .json({ error: "Wystąpił błąd podczas rejestracji" });
+      console.error("Registration error:", error);
+      return res.status(500).json({ error: "Error when registering" });
     }
   } else {
-    return res.status(405).json({ error: "Metoda nieobsługiwana" });
+    return res.status(405).json({ error: "Error" });
   }
 }

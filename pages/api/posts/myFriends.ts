@@ -31,8 +31,6 @@ export default async function handler(
 
   if (req.method === "PUT") {
     const session = await getServerSession(req, res, authOptions);
-    console.log(req.body);
-    console.log(session?.user.id);
     const friendshipId: string = req.body.friendshipId;
 
     try {
@@ -51,7 +49,6 @@ export default async function handler(
   }
   if (req.method === "DELETE") {
     const session = await getServerSession(req, res, authOptions);
-    console.log(req.body);
     const friendshipId: string = req.body;
 
     try {
