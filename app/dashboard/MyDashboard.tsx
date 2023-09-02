@@ -24,7 +24,7 @@ export default function MyDashboard({ user }: any) {
   return (
     <div className="flex justify-center flex-col items-center">
       <div className="flex justify-center mb-8">
-        <h1 className="text-2xl text-white font-bold">Pronto {user?.name}</h1>
+        <h1 className="text-2xl text-white font-bold">Welcome {user?.name}</h1>
       </div>
 
       <div className="lg:grid grid-cols-3 lg:gap-10 sm:flex sm:flex-col w-3/4">

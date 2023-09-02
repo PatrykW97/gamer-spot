@@ -27,8 +27,8 @@ export default function UserProfile(url: URL) {
       <div className="flex justify-center flex-col items-center">
         <div className="flex gap-10 items-center">
         <h1 className="text-lg lg:text-2xl text-wrap text-white font-bold">
-          Witaj na profilu użytkownika{" "}
-          {data?.nickname ? data.nickname : data?.name}
+          Welcome to{" "}
+          {data?.nickname ? data.nickname : data?.name} profile
         </h1>
 
         {data && <AddFriend userBId={data.id} />}

@@ -1,8 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import Nav from "./auth/Nav";
-import QueryWrapper from "./auth/QueryWrapper";
+import Nav from "./navbar/Nav";
+import QueryWrapper from "./navbar/QueryWrapper";
 import { Toaster } from "react-hot-toast";
 
 const roboto = Roboto({

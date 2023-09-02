@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 import { useState } from "react";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-
+import Link from "next/link";
 type CommentInfo = {
   comment: {
     createdAt?: string;
@@ -72,6 +72,9 @@ export default function CommentList({ comment }: CommentInfo) {
               alt="avatar"
               className="mx-4 rounded-full"
             />
+            <Link href={`/user/${comment.userId}`}>
+            <p className="font-bold">{comment.user.name}</p>
+            </Link>
             <p className="px-4">{comment?.message}</p>
           </div>
 
